@@ -1,8 +1,9 @@
 import React from 'react';
-import { postApi } from '../../API/api';
+import { postApi } from '../../entities/api';
 import { useNavigate,useParams } from 'react-router-dom';
-import PostItem from '../../features/post/PostItem';
-import {Button} from '../../components/Button';
+import PostItem from '../../widgets/post/PostItem';
+import { Button } from '../../shared/button/Button';
+import Loader from '../../shared/loader/Loader';
 
 const PostsPage = () => {
     const { id } = useParams();
@@ -10,7 +11,7 @@ const PostsPage = () => {
     const navigate = useNavigate();
    
     if (isLoading) {
-        return <p>loading...</p>
+        return <Loader/>
     }
     if(!isSuccess){
         return <p>Какая-то ошибка</p>

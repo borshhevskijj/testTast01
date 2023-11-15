@@ -1,9 +1,10 @@
 import React,{useEffect,useState} from "react";
-import { postApi } from "../../API/api";
-import PostItem from "../post/PostItem";
+import {postApi} from '../../entities/api'
+import PostItem from '../../widgets/post/PostItem'
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/Button";
+import {Button} from '../../shared/button/Button'
+import Loader from "../../shared/loader/Loader";
 
 const getRefForCard = (isFirst, isLast, firstCardRef, lastCardRef) => {
     if (isFirst) {
@@ -58,8 +59,9 @@ const PostContainer = () => {
 
 
     return (
-        <div>
-            <div className='post__list'>
+        <main>
+            <ul className='post__list'>
+              
                 {posts && posts.map((post,index,arr)=>{
                   const isFirstCard = index === 0;
                   const isLastCard = index === arr.length - 1;
@@ -68,14 +70,14 @@ const PostContainer = () => {
                   return (
                     <li key={post.id} ref={cardRef}>
                         <PostItem key={post.id} post={post} bodyCharsLimit={true}/>
-                        <Button onClick={()=> buttonHandler(post.id)} children={'к посту'}/>
+                        <Button onClick={()=> buttonHandler(post.id)} children={'подробнее'}/>
                     </li>
                        ) 
                 }
                 )}
-            </div>
-            {isLoading && <div>Загрузка данных</div>}
-        </div>
+                {isLoading && <Loader/>}
+            </ul>
+        </main>
     );
 };
 export default PostContainer

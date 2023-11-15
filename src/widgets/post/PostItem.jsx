@@ -1,5 +1,6 @@
 import React from 'react';
-const MAX_CHARS_LIMIT = 35
+import './postItem.css'
+const MAX_CHARS_LIMIT = 55
 
 const truncateTextAtLastSpace =(content)=>{
   const slice = content.substring(0, MAX_CHARS_LIMIT)
@@ -15,13 +16,15 @@ const contentLenghtEditor =(limit,content)=>{
 
 const PostItem = ({ post,bodyCharsLimit}) => {
   return (
-    <div className='postItemContainer'>
-      <div>№{post.id}</div>
-      <div className='postItemContainer_title'>Title: {post.title}</div>
-      <div className='postItemContainer_body'>
-        Content: {contentLenghtEditor(bodyCharsLimit,post.body)}
-      </div>
-    </div>
+    <article className='postItemContainer'>
+      <section className='postItemContainer__wrapper'>
+        <div>№{post.id}</div>
+        <h2>Title: {post.title}</h2>
+      </section>
+      <section >
+         Content: {contentLenghtEditor(bodyCharsLimit,post.body)}
+      </section>
+    </article>
   );
 };
 

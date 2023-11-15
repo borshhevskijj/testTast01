@@ -1,0 +1,10 @@
+.postItemContainer *{
+    margin-bottom: 10px;
+}
+.postItemContainer__wrapper{
+    display: flex;
+    gap: 10px;
+}
+.postItemContainer__wrapper h2{
+    font-weight: bolder;
+}
