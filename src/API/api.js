@@ -17,6 +17,7 @@ export const postApi = createApi({
       query: (id = 1) => ({
         url: `/posts/${id}`,
       }),
+      // query: (id) => `/posts/${id}`,
     }),
   }),
 });

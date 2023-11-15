@@ -2,6 +2,8 @@ import React,{useEffect,useState} from "react";
 import { postApi } from "../../API/api";
 import PostItem from "../post/PostItem";
 import { useInView } from "react-intersection-observer";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/Button";
 
 const getRefForCard = (isFirst, isLast, firstCardRef, lastCardRef) => {
     if (isFirst) {
@@ -14,23 +16,24 @@ const getRefForCard = (isFirst, isLast, firstCardRef, lastCardRef) => {
   };
 
 const JSON_PLACEHOLDER_LIMIT = 80 // 80 + 20(изначально загруженные)
+
 const PostContainer = () => {
     const [currentPostStart,setCurrentPostStart]=useState(0)
     const {data:posts, isLoading} = postApi.useFetchAllPostsQuery({limit:20,start:currentPostStart})
 
     const { ref: firstCard, inView: inViewFirstCard } = useInView({
-        threshold: 0,
-      });
+      threshold: 0,
+    });
     
-      const { ref: lastCard, inView: inViewLastCard } = useInView({
-        threshold: 1,
+    const { ref: lastCard, inView: inViewLastCard } = useInView({
+      threshold: 1,
       });
 
 
       useEffect(() => {
         if (inViewFirstCard) {
                 setCurrentPostStart((prev) =>{
-               return prev > 0 ? prev - 10 : prev
+                return prev > 0 ? prev - 10 : prev
                 } 
                 );
         }
@@ -48,7 +51,12 @@ const PostContainer = () => {
         }
       }, [inViewLastCard]);
 
-    
+      const navigate = useNavigate()
+      const buttonHandler =(id)=>{
+        navigate(`/posts/${id}`)
+      }
+
+
     return (
         <div>
             <div className='post__list'>
@@ -59,7 +67,8 @@ const PostContainer = () => {
           
                   return (
                     <li key={post.id} ref={cardRef}>
-                        <PostItem key={post.id} post={post}/>
+                        <PostItem key={post.id} post={post} bodyCharsLimit={true}/>
+                        <Button onClick={()=> buttonHandler(post.id)} children={'к посту'}/>
                     </li>
                        ) 
                 }

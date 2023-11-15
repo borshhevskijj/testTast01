@@ -1,20 +1,26 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '../../components/Button';
+const MAX_CHARS_LIMIT = 35
 
-const PostItem = ({ post }) => {
-//   const navigate = useNavigate();
-  const navigateTo =()=>{
-    console.log('navigating...');
+const truncateTextAtLastSpace =(content)=>{
+  const slice = content.substring(0, MAX_CHARS_LIMIT)
+  const lastSpaceIndex = slice.lastIndexOf(' ')
+  return `${content.substring(0,lastSpaceIndex)} ...`
+}
+const contentLenghtEditor =(limit,content)=>{
+  if (limit) {
+    return truncateTextAtLastSpace(content)
   }
+  return content
+}
+
+const PostItem = ({ post,bodyCharsLimit}) => {
   return (
     <div className='postItemContainer'>
       <div>№{post.id}</div>
       <div className='postItemContainer_title'>Title: {post.title}</div>
       <div className='postItemContainer_body'>
-        Content: {post.body.length > 35 ? post.body.substring(0, 35) + '...' : post.body}
+        Content: {contentLenghtEditor(bodyCharsLimit,post.body)}
       </div>
-      <Button onClick={navigateTo} children={'к посту'}/>
     </div>
   );
 };
