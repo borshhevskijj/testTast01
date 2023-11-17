@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./app/App";
 import { setupStore } from "./app/store";
 import { BrowserRouter } from "react-router-dom";
-
+console.log("testing");
 const store = setupStore();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
